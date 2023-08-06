@@ -1,13 +1,3 @@
-/*
- * @Author: George Zhao
- * @Date: 2020-03-18 11:37:51
- * @LastEditors: George Zhao
- * @LastEditTime: 2021-05-04 19:14:04
- * @Description: 
- * @Email: 2018221138@email.szu.edu.cn
- * @Company: SZU
- * @Version: 1.0
- */
 #include "../Dataloader/SDK_Dataloader.hpp"
 #include "../Core/SDK_Core.hpp"
 #include <fstream>
@@ -69,6 +59,27 @@ std::vector<pdata> normalize_data(const std::vector<fdata>& thefdata)
         thepdata.push_back(pdata(element.name, (double)(element.startpoint - min_p) / legth, (double)(element.endpoint - min_p) / legth, element.color));
     }
     return thepdata;
+}
+
+double length(const std::vector<fdata>& thefdata)
+{
+    unsigned long long max_p = thefdata[0].startpoint;
+    unsigned long long min_p = thefdata[0].startpoint;
+    for (const auto& element : thefdata) {
+        if (element.startpoint > element.endpoint) {
+            if (element.startpoint > max_p)
+                max_p = element.startpoint;
+            if (element.endpoint < min_p)
+                min_p = element.endpoint;
+        } else {
+            if (element.endpoint > max_p)
+                max_p = element.endpoint;
+            if (element.startpoint < min_p)
+                min_p = element.startpoint;
+        }
+    }
+    double length = max_p - min_p;
+    return length;
 }
 
 // ^([A-Za-z0-9]+)\s+([A-Za-z]*)\(*\s*(\d+)..(\d+)\s*\)*\s+(\w*)$

@@ -1,13 +1,3 @@
-/*
- * @Author: George Zhao
- * @Date: 2020-03-18 11:51:14
- * @LastEditors: George Zhao
- * @LastEditTime: 2020-03-19 16:06:15
- * @Description: 
- * @Email: 2018221138@email.szu.edu.cn
- * @Company: SZU
- * @Version: 1.0
- */
 #ifndef SDK_Core_hpp
 #define SDK_Core_hpp
 #include <iostream>

@@ -1,13 +1,3 @@
-/*
- * @Author: George Zhao
- * @Date: 2020-03-18 11:38:05
- * @LastEditors: George Zhao
- * @LastEditTime: 2020-03-19 14:21:05
- * @Description: 
- * @Email: 2018221138@email.szu.edu.cn
- * @Company: SZU
- * @Version: 1.0
- */
 #ifndef SDK_Dataloader_hpp
 #define SDK_Dataloader_hpp
 #include "../Core/SDK_Core.hpp"
@@ -65,6 +55,7 @@ struct pdata {
 };
 std::vector<fdata> readdata(const std::string& pathway);
 std::vector<pdata> normalize_data(const std::vector<fdata>& thefdata);
+double length(const std::vector<fdata>& thefdata);
 fdata Reline(const std::string& text);
 }
 

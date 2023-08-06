@@ -1,17 +1,7 @@
-/*
- * @Author: George Zhao
- * @Date: 2020-03-16 15:16:27
- * @LastEditors: George Zhao
- * @LastEditTime: 2021-05-03 22:50:33
- * @Description: 
- * @Email: 2018221138@email.szu.edu.cn
- * @Company: SZU
- * @Version: 1.0
- */
-
 #include "SDK_Drawer.hpp"
 #include <sstream>
 #include <stdexcept>
+#include <cmath>
 
 namespace SDK_Draw {
 
@@ -98,6 +88,48 @@ void make_line(cr::cairo_surface_t* surface, const SDK_Core::RGB& line_color)
     cr::cairo_move_to(pan, gap, PageH / 2);
     cr::cairo_line_to(pan, PageW - gap, PageH / 2);
     cr::cairo_stroke(pan);
+    cr::cairo_destroy(pan);
+}
+void make_circo(cr::cairo_surface_t* surface)
+{
+    cr::cairo_t* pan = cr::cairo_create(surface);
+    cr::cairo_move_to(pan, center_x + radius, center_y);
+    cr::cairo_arc(pan, center_x, center_y, radius, 0, 2 * M_PI);
+    cr::cairo_set_source_rgb(pan, 0, 0, 0);
+    cr::cairo_set_line_width(pan, 10);
+    cr::cairo_stroke_preserve(pan);
+    cr::cairo_destroy(pan);
+}
+
+void circo_arrow(cr::cairo_surface_t* surface, const double& startPresent, const double& endPresent, const SDK_Core::RGB& rgb)
+{
+    double new_startPresent ;
+    double new_endtPresent  ;
+     if (startPresent > endPresent)
+    {
+        new_startPresent = endPresent;
+        new_endtPresent = startPresent;
+    }
+
+    cr::cairo_t* pan = cr::cairo_create(surface);
+    cr::cairo_move_to(pan, center_x + radius * cos(new_startPresent * 2 * M_PI), center_y + radius * sin(new_startPresent * 2 * M_PI));
+    cr::cairo_arc(pan, center_x, center_y, radius, new_startPresent * 2 * M_PI, new_endtPresent * 2 * M_PI);
+    cr::cairo_set_source_rgb(pan, rgb.R, rgb.G, rgb.B );
+    cr::cairo_set_line_width(pan, 10);
+    cr::cairo_stroke_preserve(pan);
+    cr::cairo_destroy(pan);
+}
+
+
+void circo_annotate(cr::cairo_surface_t* surface, const double& Present, const char* context)
+{
+    cr::cairo_t* pan = cr::cairo_create(surface);
+    cr::cairo_new_sub_path(pan);
+    cr::cairo_select_font_face(pan, "Arial", cr::CAIRO_FONT_SLANT_NORMAL, cr::CAIRO_FONT_WEIGHT_BOLD);
+    cr::cairo_set_font_size(pan, 10);
+    cr::cairo_set_source_rgb(pan, 0, 1, 1);
+    cr::cairo_move_to(pan, center_x + radius * cos(Present * M_PI), center_y + radius * sin(Present * M_PI));
+    cr::cairo_show_text(pan, context);
     cr::cairo_destroy(pan);
 }
 }

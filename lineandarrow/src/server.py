@@ -1,13 +1,3 @@
-'''
-@Author: George Zhao
-@Date: 2020-03-20 15:54:19
-LastEditors: George Zhao
-LastEditTime: 2021-05-04 19:31:24
-@Description:
-@Email: 2018221138@email.szu.edu.cn
-@Company: SZU
-@Version: 1.0
-'''
 from flask import abort, jsonify, Flask, request, Response
 from flask import make_response, send_from_directory
 import datetime
@@ -49,8 +39,8 @@ def index_page_file(filename):
     return send_from_directory(libpath, filename, as_attachment=False)
 
 
-@app.route('/LineAndArrow')
-def LindAndArrow():
+@app.route('/LineArrowAndCirco')
+def LineArrowAndCirco():
     try:
         data = base64.b64decode(request.args['Data']).decode("utf-8")
         if not data:
@@ -69,12 +59,14 @@ def LindAndArrow():
             svgdata = f.read()
         with open("./out/img/{}.png".format(filename), 'rb') as f:
             pngdata = f.read()
-
         with open("./out/img/{}.pdf".format(filename), 'rb') as f:
             pdfdata = f.read()
+        with open("./out/img/{}_circo.pdf".format(filename), 'rb') as f:
+            circo_pdfdata = f.read()
 
         os.remove("./out/img/{}.svg".format(filename))
         os.remove("./out/img/{}.pdf".format(filename))
+        os.remove("./out/img/{}_circo.pdf".format(filename))
         os.remove("./out/img/{}.png".format(filename))
         os.remove("./tmp/{}.data".format(filename))
         if request.args['D'] == '1':
@@ -85,6 +77,11 @@ def LindAndArrow():
         if request.args['D'] == '2':
             resp = make_response(pdfdata)
             resp.headers["Content-Disposition"] = "attachment; filename={}.pdf".format(
+                filename)
+            return resp
+        if request.args['D'] == '3':
+            resp = make_response(circo_pdfdata)
+            resp.headers["Content-Disposition"] = "attachment; filename={}_circo.pdf".format(
                 filename)
             return resp
         else:
@@ -104,7 +101,7 @@ def cors_response(res):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-e', type=str, help='Path to LineAndArrow.')
+    parser.add_argument('-e', type=str, help='Path to LineArrowAndCirco.')
     parser.add_argument('--port', type=int, help='Port', default=Port)
     args = parser.parse_args()
     path_to_exe = args.e
