@@ -1,7 +1,0 @@
-build*
-*.txt
-!CMakeLists.txt
-*.json
-.vscode
-tmp
-out
