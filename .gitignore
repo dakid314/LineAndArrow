@@ -1,3 +1,5 @@
 *.vscode
 *build
 *test1
+tmp
+out
