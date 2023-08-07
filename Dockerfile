@@ -37,4 +37,4 @@ RUN mkdir build; cd build; \
 
 EXPOSE 80
 
-CMD python3 -u src/server.py --port 80 -e ./build/bin/LineAndArrow
+CMD python3 -u src/server.py --port 80 -e ./build/bin/LineArrowAndCirco

@@ -2,12 +2,12 @@ version: "3"
 
 services:
   lineandarrow:
-    container_name: LineandArrow
+    container_name: LineArrowAndCirco
     build:
       context: ./
       dockerfile: ./Dockerfile
       labels:
-        com.example.description: "LineandArrow"
+        com.example.description: "LineArrowAndCirco"
         com.example.department: "HCD Lab"
         com.example.label-with-empty-value: ""
     image: georgezhao/landa:1.0

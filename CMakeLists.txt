@@ -1,4 +1,4 @@
-project(LineAndArrow)
+project(LineArrowAndCirco)
 cmake_minimum_required(VERSION 3.10)
 enable_language(CXX)
 if (CMAKE_SYSTEM_NAME MATCHES "Windows")
