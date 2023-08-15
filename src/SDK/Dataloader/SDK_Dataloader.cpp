@@ -1,8 +1,10 @@
 #include "../Dataloader/SDK_Dataloader.hpp"
 #include "../Core/SDK_Core.hpp"
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <regex>
+#include <vector>
 namespace SDK_Dataloader {
 
 fdata::operator std::string()
@@ -22,9 +24,14 @@ std::vector<fdata> readdata(const std::string& pathway)
     if (database.is_open() == false)
         std::cout << "\033[1;32m" << pathway << " Not Open. \033[0m" << std::endl;
     std::vector<fdata> data;
-    while (database.eof() != true) {
+    int line_num ;
+    std::string content((std::istreambuf_iterator<char>(database)),(std::istreambuf_iterator<char>()));
+    line_num = std::count(content.begin(),content.end(),'\n');
+    int read_line = 0;
+    while (read_line < line_num) {
         std::string line;
         std::getline(database, line);
+        read_line++;
         if (line.empty())
             continue;
         try {

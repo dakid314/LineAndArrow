@@ -6,10 +6,9 @@ import os
 import time
 import base64
 import subprocess
-
 import argparse
 
-Port = 8080
+Port = 5501
 path_to_exe = ""
 
 if os.path.exists("./out/") == False:
@@ -105,4 +104,4 @@ if __name__ == '__main__':
     path_to_exe = args.e
     Port = args.port
     app.config['JSON_AS_ASCII'] = False
-    app.run(host='0.0.0.0', port=Port, debug=False)
+    app.run(host='127.0.0.1', port=Port, debug=False)

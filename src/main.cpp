@@ -67,16 +67,16 @@ int main(int argc, char** argv)
 
     std::string filemane = std::string(cmdconfig.get<std::string>("output"));
     cr::cairo_surface_t* surfacepdf = cr::cairo_pdf_surface_create((filemane + ".pdf").c_str(), SDK_Draw::PageW, SDK_Draw::PageH);
-    cr::cairo_surface_t* circo_surfacepdf = cr::cairo_pdf_surface_create((filemane + "_circo.pdf").c_str());
+    cr::cairo_surface_t* circo_surfacepdf = cr::cairo_pdf_surface_create((filemane + "_circo.pdf").c_str(), SDK_Draw::circo_PageW, SDK_Draw::circo_PageH);
     cr::cairo_surface_t* surfacesvg = cr::cairo_svg_surface_create((filemane + ".svg").c_str(), SDK_Draw::PageW, SDK_Draw::PageH);
 
     SDK_Draw::make_line(surfacepng, SDK_Core::NormalColor::GRy);
     SDK_Draw::make_line(surfacepdf, SDK_Core::NormalColor::GRy);
     SDK_Draw::make_line(surfacesvg, SDK_Core::NormalColor::GRy);
-    SDK_Draw::make_circo(circo_surfacepdf)
+    SDK_Draw::make_circo(circo_surfacepdf);
 
-        std::filesystem::path strtxt(cmdconfig.get<std::string>("input"));
-    if (std::filesystem::exists(strtxt) == false) {
+    std::filesystem::path strtxt(cmdconfig.get<std::string>("input"));
+    if (!std::filesystem::exists(cmdconfig.get<std::string>("input"))) {
         std::cout << "\033[1;32m" << std::string(cmdconfig.get<std::string>("input")) << " Not exist. \033[0m" << std::endl;
         throw std::logic_error(std::string(cmdconfig.get<std::string>("input")) + std::string(" Not exist."));
     }
@@ -91,7 +91,7 @@ int main(int argc, char** argv)
         SDK_Draw::arrow(surfacesvg, element.startpoint, element.endpoint, element.color, SDK_Core::SIZE2D({ SDK_Draw::PageW, SDK_Draw::PageH }), cmdconfig.get<double>("width"));
         SDK_Draw::annotate(surfacesvg, (element.startpoint + element.endpoint) / 2, SDK_Core::SIZE2D({ SDK_Draw::PageW, SDK_Draw::PageH }), element.name.c_str(), cmdconfig.get<double>("width"), SDK_Draw::UpandDown(element.startpoint, element.endpoint));
         SDK_Draw::circo_arrow(circo_surfacepdf, element.startpoint, element.endpoint, element.color);
-        SDK_Draw::circo_annotate(circo_surfacepdf, (element.startpoint + element.endpoint) / 2, element.name);
+        SDK_Draw::circo_annotate(circo_surfacepdf, (element.startpoint + element.endpoint) / 2, element.name.c_str());
     }
 
     cr::cairo_surface_write_to_png(surfacepng, (filemane + ".png").c_str());

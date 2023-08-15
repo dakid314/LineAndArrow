@@ -57,6 +57,7 @@ std::vector<fdata> readdata(const std::string& pathway);
 std::vector<pdata> normalize_data(const std::vector<fdata>& thefdata);
 double length(const std::vector<fdata>& thefdata);
 fdata Reline(const std::string& text);
+SDK_Core::RGB changeCharToRGB(const char* text);
 }
 
 #endif

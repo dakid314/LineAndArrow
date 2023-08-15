@@ -4,20 +4,14 @@
 namespace SDK_Core {
 std::string ltos(const unsigned long long l)
 {
-    std::ostringstream os;
-    os << l;
     std::string result;
-    std::istringstream is(os.str());
-    is >> result;
+    result = std::to_string(l);
     return result;
 }
 std::string dtos(const double l)
 {
-    std::ostringstream os;
-    os << l;
     std::string result;
-    std::istringstream is(os.str());
-    is >> result;
+    result = std::to_string(l);
     return result;
 }
 RGB::operator std::string() const

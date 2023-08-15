@@ -41,15 +41,14 @@ extern std::function<bool(const double, const double)> UpandDown;
 void annotate(cr::cairo_surface_t* surface, const double& Present, const SDK_Core::SIZE2D& pagesize, const char* context, const double linewidth, const bool upAndDpwn);
 
 void arrow(cr::cairo_surface_t* surface, const double& startPresent, const double& endPresent, const SDK_Core::RGB& rgb, const SDK_Core::SIZE2D& pagesize, const double& ArrowWirth);
-SDK_Core::RGB changeCharToRGB(const char* text);
 
 void make_line(cr::cairo_surface_t* surface, const SDK_Core::RGB& line_color);
 
-void make_circo(cr::cairo_surface_t* surface, const SDK_Core::RGB& line_color);
+void make_circo(cr::cairo_surface_t* surface);
 
 void circo_annotate(cr::cairo_surface_t* surface, const double& Present,  const char* context);
 
-void circo_arrow(cr::cairo_surface_t* surface, const double& startPresent, const double& endPresent, const SDK_Core::RGB& rgb, const SDK_Core::SIZE2D& pagesize);
+void circo_arrow(cr::cairo_surface_t* surface, const double& startPresent, const double& endPresent, const SDK_Core::RGB& rgb);
 
 
 }
