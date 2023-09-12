@@ -1,32 +1,41 @@
+#include "../include/cmdline.h"
 #include "SDK/Dataloader/SDK_Dataloader.hpp"
 #include "SDK/Drawer/SDK_Drawer.hpp"
-#include "cmdline.h"
 #include <algorithm>
-#include <filesystem>
+#include <experimental/filesystem>
+#include <fstream>
 #include <iostream>
 #include <iterator>
 #include <map>
+#include <string>
 #include <vector>
-
+bool fileExists(const std::string& filename)
+{
+    std::ifstream file(filename);
+    return file.good();
+}
 namespace {
 
-auto initFolder(const std::string& tmp_dirpath = "./", const std::string& data_dirpath = "./")
+
+
+std::map<std::string, std::string> initFolder(const std::string& tmp_dirpath = "./", const std::string& data_dirpath = "./")
 {
+    namespace fs = std::experimental::filesystem;
     std::map<std::string, std::string> ph_of_dir;
 
     ph_of_dir["data"] = data_dirpath + "/data/";
     ph_of_dir["setting"] = data_dirpath + "/setting/";
     ph_of_dir["out"] = data_dirpath + "/out/";
     ph_of_dir["tmp"] = tmp_dirpath + "/tmp/";
-
-    for (auto& i : ph_of_dir) {
-        if (std::filesystem::exists(std::filesystem::path(i.second)) == false) {
-            std::filesystem::create_directory(i.second);
+    for (auto& i : ph_of_dir)
+    {
+        if (!fileExists(i.second)) {
+            fs::create_directories(i.second);
         }
     }
+
     return ph_of_dir;
 }
-
 }
 
 decltype(initFolder()) all_path;
@@ -75,10 +84,12 @@ int main(int argc, char** argv)
     SDK_Draw::make_line(surfacesvg, SDK_Core::NormalColor::GRy);
     SDK_Draw::make_circo(circo_surfacepdf);
 
-    std::filesystem::path strtxt(cmdconfig.get<std::string>("input"));
-    if (!std::filesystem::exists(cmdconfig.get<std::string>("input"))) {
-        std::cout << "\033[1;32m" << std::string(cmdconfig.get<std::string>("input")) << " Not exist. \033[0m" << std::endl;
-        throw std::logic_error(std::string(cmdconfig.get<std::string>("input")) + std::string(" Not exist."));
+    std::string inputPath = cmdconfig.get<std::string>("input");
+    
+    
+    if (!fileExists(inputPath)) {
+        std::cout << "\033[1;32m" << inputPath << " Not exist. \033[0m" << std::endl;
+        throw std::logic_error(inputPath + " Not exist.");
     }
     std::vector<SDK_Dataloader::fdata> data = SDK_Dataloader::readdata(cmdconfig.get<std::string>("input"));
     auto a = SDK_Dataloader::normalize_data(data);
