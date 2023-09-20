@@ -8,7 +8,7 @@ import base64
 import subprocess
 import argparse
 
-Port = 58091
+Port = 5000
 path_to_exe = ""
 
 if os.path.exists("./out/") == False:
@@ -52,6 +52,8 @@ def LineArrowAndCirco():
         cmdstdout.wait()
         svgdata = str()
         pngdata = str()
+        pdfdata = str()
+        circo_pdfdata = str()
         with open("./out/img/{}.svg".format(filename)) as f:
             svgdata = f.read()
         with open("./out/img/{}.png".format(filename), 'rb') as f:

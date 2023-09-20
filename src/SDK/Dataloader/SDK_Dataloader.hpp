@@ -2,9 +2,6 @@
 #define SDK_Dataloader_hpp
 #include "../Core/SDK_Core.hpp"
 #include <vector>
-// namespace json {
-// #include "../cjson/cJSON.hpp"
-// }
 namespace SDK_Dataloader {
 struct fdata {
     std::string name;
@@ -55,7 +52,6 @@ struct pdata {
 };
 std::vector<fdata> readdata(const std::string& pathway);
 std::vector<pdata> normalize_data(const std::vector<fdata>& thefdata);
-double length(const std::vector<fdata>& thefdata);
 fdata Reline(const std::string& text);
 SDK_Core::RGB changeCharToRGB(const char* text);
 }

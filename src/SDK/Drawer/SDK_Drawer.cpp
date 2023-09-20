@@ -105,11 +105,18 @@ void circo_arrow(cr::cairo_surface_t* surface, const double& startPresent, const
 {
     double new_startPresent ;
     double new_endtPresent  ;
-     if (startPresent > endPresent)
+    if (startPresent > endPresent)
     {
         new_startPresent = endPresent;
         new_endtPresent = startPresent;
     }
+    else
+    {
+        new_startPresent = startPresent;
+        new_endtPresent = endPresent;
+
+    }
+    
 
     cr::cairo_t* pan = cr::cairo_create(surface);
     cr::cairo_move_to(pan, center_x + radius * cos(new_startPresent * 2 * M_PI), center_y + radius * sin(new_startPresent * 2 * M_PI));
@@ -125,10 +132,10 @@ void circo_annotate(cr::cairo_surface_t* surface, const double& Present, const c
 {
     cr::cairo_t* pan = cr::cairo_create(surface);
     cr::cairo_new_sub_path(pan);
-    cr::cairo_select_font_face(pan, "Arial", cr::CAIRO_FONT_SLANT_NORMAL, cr::CAIRO_FONT_WEIGHT_BOLD);
+    cr::cairo_select_font_face(pan, "Sans", cr::CAIRO_FONT_SLANT_NORMAL, cr::CAIRO_FONT_WEIGHT_BOLD);
     cr::cairo_set_font_size(pan, 10);
-    cr::cairo_set_source_rgb(pan, 0, 1, 1);
-    cr::cairo_move_to(pan, center_x + radius * cos(Present * M_PI), center_y + radius * sin(Present * M_PI));
+    cr::cairo_set_source_rgb(pan, 0, 0, 0);
+    cr::cairo_move_to(pan, center_x + radius * cos(Present *2* M_PI), center_y + radius * sin(Present *2* M_PI));
     cr::cairo_show_text(pan, context);
     cr::cairo_destroy(pan);
 }
