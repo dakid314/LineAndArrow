@@ -10,7 +10,7 @@ services:
         com.example.description: "LineArrowAndCirco"
         com.example.department: "HCD Lab"
         com.example.label-with-empty-value: ""
-    image: georgezhao/landa:1.0
+    image: wujiamin/landa:1.0
     volumes:
       - ./out:/srv/app/out
       - ./lib:/srv/app/lib

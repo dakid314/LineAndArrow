@@ -95,7 +95,7 @@ void make_circo(cr::cairo_surface_t* surface)
     cr::cairo_t* pan = cr::cairo_create(surface);
     cr::cairo_move_to(pan, center_x + radius, center_y);
     cr::cairo_arc(pan, center_x, center_y, radius, 0, 2 * M_PI);
-    cr::cairo_set_source_rgb(pan, 0, 0, 0);
+    cr::cairo_set_source_rgb(pan, 0.584, 0.584, 0.620);
     cr::cairo_set_line_width(pan, 10);
     cr::cairo_stroke_preserve(pan);
     cr::cairo_destroy(pan);
@@ -119,8 +119,8 @@ void circo_arrow(cr::cairo_surface_t* surface, const double& startPresent, const
     
 
     cr::cairo_t* pan = cr::cairo_create(surface);
-    cr::cairo_move_to(pan, center_x + radius * cos(new_startPresent * 2 * M_PI), center_y + radius * sin(new_startPresent * 2 * M_PI));
-    cr::cairo_arc(pan, center_x, center_y, radius, new_startPresent * 2 * M_PI, new_endtPresent * 2 * M_PI);
+    cr::cairo_move_to(pan, center_x + radius * cos(new_startPresent * 2 * M_PI - M_PI / 2), center_y + radius * sin(new_startPresent * 2 * M_PI - M_PI / 2)) ;
+    cr::cairo_arc(pan, center_x, center_y, radius, new_startPresent * 2 * M_PI- M_PI / 2 , new_endtPresent * 2 * M_PI- M_PI / 2);
     cr::cairo_set_source_rgb(pan, rgb.R, rgb.G, rgb.B );
     cr::cairo_set_line_width(pan, 10);
     cr::cairo_stroke_preserve(pan);
@@ -135,7 +135,7 @@ void circo_annotate(cr::cairo_surface_t* surface, const double& Present, const c
     cr::cairo_select_font_face(pan, "Sans", cr::CAIRO_FONT_SLANT_NORMAL, cr::CAIRO_FONT_WEIGHT_BOLD);
     cr::cairo_set_font_size(pan, 10);
     cr::cairo_set_source_rgb(pan, 0, 0, 0);
-    cr::cairo_move_to(pan, center_x + radius * cos(Present *2* M_PI), center_y + radius * sin(Present *2* M_PI));
+    cr::cairo_move_to(pan, center_x + radius * cos(Present *2* M_PI- M_PI / 2), center_y + radius * sin(Present *2* M_PI- M_PI / 2));
     cr::cairo_show_text(pan, context);
     cr::cairo_destroy(pan);
 }

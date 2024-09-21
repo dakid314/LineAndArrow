@@ -1,4 +1,4 @@
-LineAndArrow
+LineArrowAndCirco
 ===
 
 ![HomePAGE](lib/img/HomePAGE.png)
@@ -28,8 +28,8 @@ geneName    3668847..3668981	pink
 # Usage
 ## Docker Images
 ```shell
-docker build -t georgezhao/landa:1.0 .
-docker run -d -p 1080:1080 georgezhao/landa:1.0
+docker build -t wujiamin/landa:1.0 .
+docker run -d -p 1080:1080 wujiamin/landa:1.0
 ```
 ## Build the Project
 ```shell
@@ -38,9 +38,9 @@ cd build
 cmake -DCMAKE_C_COMPILER=gcc-10 -DCMAKE_CXX_COMPILER=g++-10 ..
 make -j
 ```
-## LineAndArrow
+## LineArrowAndCirco
 ```
-usage: LineAndArrow --input=string --output=string [options] ...
+usage: LineArrowAndCirco --input=string --output=string [options] ...
 options:
   -i, --input       Path to Input File (string)
   -o, --output      Name of Output. (string)
@@ -51,7 +51,7 @@ options:
 ```
 ```shell
 # Output to ./o_file.svg
-./LineAndArrow --input input_file.data --output o_file
+./LineArrowAndCirco --input input_file.data --output o_file
 ```
 
 ## Server
@@ -61,31 +61,32 @@ usage: server.py [-h] [-e E] [--port PORT]
 
 optional arguments:
   -h, --help   show this help message and exit
-  -e E         Path to LineAndArrow.
+  -e E         Path to LineArrowAndCirco.
   --port PORT  Port(Default: 8080)
 ```
 ```shell
-python3.8 -W ignore -u server.py --port 8080 -e ./LineAndArrow.exe
+cd LineArrowAndCirco
+python3.8 -W ignore -u server.py --port 8080 -e ./build/bin/LineArrowAndCirco
 ```
 
-And Then visit: `http://YourAddr:YourPort/LineAndArrow?D=1&Data=YourBase64CodeData`
+And Then visit: `http://YourAddr:YourPort/LineArrowAndCirco?D=1&Data=YourBase64CodeData`
 
 ### Wsgi Mode
-Add File named lineandarrow.wsgi:
+Add File named LineArrowAndCirco.wsgi:
 ```
 import sys
 import os
 sys.path.insert(0, 'Path_to_the_folder_of_server/src')
-os.chdir('/home/georgezhao/Source/Project/LineAndArrow')
+os.chdir('/home/wujiamin/Source/Project/LineArrowAndCirco')
 from server import path_to_exe
 
-path_to_exe = '/Path_to_LineAndArrow/LineAndArrow.exe'
+path_to_exe = '/Path_to_LineArrowAndCirco/LineArrowAndCirco.exe'
 from server import app as application
 ```
 
 Add Config to Your site_config. (e.g. /etc/apache2/sites-enabled/*.conf)
 ```
-WSGIScriptAlias / /Path_to_the_folder_of_wsgi_file/lineandarrow.wsgi
+WSGIScriptAlias / /Path_to_the_folder_of_wsgi_file/LineArrowAndCirco.wsgi
 
 <Directory /Path_to_the_folder_of_wsgi_file>
     AllowOverride None
@@ -102,4 +103,12 @@ Restart Your Apache2 server
 sudo service apache2 restart
 ```
 
-And Then visit: `http://YourAddr:YourPort/LineAndArrow?D=1&Data=YourBase64CodeData`
+And Then visit: `http://YourAddr:YourPort/LineArrowAndCirco?D=1&Data=YourBase64CodeData`
+
+###
+serve_mode
+cd LineArrowAndCirco
+```shell
+python3 -u src/server.py -e LineArrowAndCirco/build/bin/LineArrowAndCirco
+```
+And Then visit: `http://YourAddr:YourPort/

@@ -16,8 +16,8 @@ namespace SDK_Draw {
 // Gobal:
 const double PageW = 1920;
 const double PageH = 1080;
-const double circo_PageW = 500;
-const double circo_PageH = 500;
+const double circo_PageW = 550;
+const double circo_PageH = 550;
 const double W_line = 3;
 const double W = 5;
 const double gap = 10;
